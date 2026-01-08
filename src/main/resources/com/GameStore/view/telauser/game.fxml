@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.GameStore.Controller.GamesController">
+    <children>
+        <VBox spacing="8" layoutX="30" layoutY="20">
+            <TextField fx:id="txtNome" promptText="Nome do Jogo" />
+            <TextField fx:id="txtGenero" promptText="Gênero" />
+            <TextField fx:id="txtPreco" promptText="Preço" />
+            <Button text="Salvar" onAction="#salvar" />
+            <TableView fx:id="tableGames">
+                <columns>
+                    <TableColumn text="Nome" />
+                    <TableColumn text="Gênero" />
+                    <TableColumn text="Preço" />
+                </columns>
+            </TableView>
+        </VBox>
+    </children>
+</AnchorPane>

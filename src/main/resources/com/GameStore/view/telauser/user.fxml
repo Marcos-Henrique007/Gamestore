@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.GameStore.Controller.UserController">
+    <children>
+        <VBox spacing="8" layoutX="30" layoutY="20">
+            <TextField fx:id="txtNome" promptText="Nome" />
+            <TextField fx:id="txtEmail" promptText="Email" />
+            <Button text="Cadastrar" onAction="#cadastrar" />
+            <TableView fx:id="tableUsers">
+                <columns>
+                    <TableColumn text="Nome" />
+                    <TableColumn text="Email" />
+                </columns>
+            </TableView>
+        </VBox>
+    </children>
+</AnchorPane>

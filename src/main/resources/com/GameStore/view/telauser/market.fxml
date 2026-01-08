@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.GameStore.Controller.MarketController">
+    <children>
+        <VBox spacing="8" layoutX="30" layoutY="20">
+            <Label text="Marketplace" style="-fx-font-size: 16px;" />
+            <TableView fx:id="tableMarket">
+                <columns>
+                    <TableColumn text="Jogo" />
+                    <TableColumn text="Preço" />
+                </columns>
+            </TableView>
+            <Button text="Comprar" onAction="#comprar" />
+        </VBox>
+    </children>
+</AnchorPane>

@@ -1,17 +1,23 @@
 package com.GameStore;
 
-import com.GameStore.view.TelaInicial;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage stage) {
         try {
-            TelaInicial telaInicial = new TelaInicial();
-            telaInicial.mostrarTela(primaryStage);
-            primaryStage.show();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/GameStore/view/TelaInicial.fxml"));
+
+            Scene scene = new Scene(root, 800, 600);
+            stage.setTitle("Game Store");
+            stage.setScene(scene);
+            stage.show();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
