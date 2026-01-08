@@ -1,6 +1,8 @@
 package com.GameStore.model;
 
 public class User {
+
+    private Integer id;
     private String name;
     private String email;
     private String password;
@@ -8,13 +10,27 @@ public class User {
     private String address;
     private String cpf;
 
-    public User (String name, String email, String password, String phone, String address, String cpf) {
+    // Construtor vazio para que o DAO não reclame
+    public User() {
+    }
+
+    public User(Integer id, String name, String email, String password,
+                String phone, String address, String cpf) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.phone = phone;
         this.address = address;
         this.cpf = cpf;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

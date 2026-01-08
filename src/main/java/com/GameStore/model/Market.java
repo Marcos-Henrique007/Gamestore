@@ -1,67 +1,82 @@
 package com.GameStore.model;
 
 public class Market {
-    private Games[] games;
-    private String Name;
-    private String Email;
-    private String Adress;
-    private String Phone;
-    private String Cnpj;
 
-    public Market(Games[] games, String Name, String Email, String Adress, String Phone, String Cnpj) {
-        this.games = games;
-        this.Name = Name;
-        this.Email = Email;
-        this.Adress = Adress;
-        this.Phone = Phone;
-        this.Cnpj = Cnpj;
+    private Integer id;
+    private String titulo;
+    private String nameEmpresa;
+    private String email;
+    private String address;
+    private String phone;
+    private String cnpj;
+
+    public Market() {
     }
 
-    public Games[] getGames() {
-        return games;
+    public Market(Integer id, String titulo, String nameEmpresa,
+                  String email, String address, String phone, String cnpj) {
+        this.id = id;
+        this.titulo = titulo;
+        this.nameEmpresa = nameEmpresa;
+        this.email = email;
+        this.address = address;
+        this.phone = phone;
+        this.cnpj = cnpj;
     }
 
-    public void setGames(Games[] games) {
-        this.games = games;
+    public Integer getId() {
+        return id;
     }
 
-    public String getName() {
-        return Name;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setName(String name) {
-        this.Name = name;
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getNameEmpresa() {
+        return nameEmpresa;
+    }
+
+    public void setNameEmpresa(String nameEmpresa) {
+        this.nameEmpresa = nameEmpresa;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        this.Email = email;
+        this.email = email;
     }
 
-    public String getAdress() {
-        return Adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String Adress) {
-        this.Adress = Adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPhone() {
-        return Phone;
+        return phone;
     }
 
     public void setPhone(String phone) {
-        this.Phone = phone;
+        this.phone = phone;
     }
 
     public String getCnpj() {
-        return Cnpj;
+        return cnpj;
     }
 
     public void setCnpj(String cnpj) {
-        this.Cnpj = cnpj;
+        this.cnpj = cnpj;
     }
 }

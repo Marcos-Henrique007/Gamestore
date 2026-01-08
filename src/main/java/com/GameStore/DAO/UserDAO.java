@@ -1,15 +1,15 @@
 package com.GameStore.DAO;
 
 import com.GameStore.DataBase.ConexaoDB;
-import com.GameStore.model.Games;
 import com.GameStore.model.User;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
-    public void salvar (User user) throws SQLException {
-        if(user.getId() == 0) {
+
+    public void salvar(User user) throws SQLException {
+        if (user.getId() == null || user.getId() == 0) {
             inserir(user);
         } else {
             atualizar(user);
@@ -45,6 +45,7 @@ public class UserDAO {
             ps.setString(4, user.getPhone());
             ps.setString(5, user.getAddress());
             ps.setString(6, user.getCpf());
+            ps.setInt(7, user.getId());
 
             ps.executeUpdate();
         }
@@ -62,7 +63,7 @@ public class UserDAO {
     }
 
     public List<User> listar() throws SQLException {
-        List<Games> lista = new ArrayList<>();
+        List<User> lista = new ArrayList<>();
         String sql = "SELECT id, name, email, password, phone, address, cpf FROM user";
 
         try (Statement st = ConexaoDB.getInstance().getConnection().createStatement();
@@ -84,14 +85,14 @@ public class UserDAO {
         return lista;
     }
 
-    public List<User> buscarPorNome(String nome) throws SQLException {
+    public List<User> buscarPorNome(String name) throws SQLException {
         List<User> lista = new ArrayList<>();
-        String sql = "SELECT id, name, email, password, phone, address, cpf FROM games WHERE name LIKE ?";
+        String sql = "SELECT id, name, email, password, phone, address, cpf FROM user WHERE name LIKE ?";
 
         try (PreparedStatement ps = ConexaoDB.getInstance()
                 .getConnection().prepareStatement(sql)) {
 
-            ps.setString(1, "%" + nome + "%");
+            ps.setString(1, "%" + name + "%");
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -110,5 +111,4 @@ public class UserDAO {
         }
         return lista;
     }
-
 }
