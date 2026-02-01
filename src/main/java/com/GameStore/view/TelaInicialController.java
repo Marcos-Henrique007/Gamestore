@@ -1,19 +1,24 @@
 package com.GameStore.view;
 import javafx.fxml.FXML;
+import javafx.stage.Stage;
+
 public class TelaInicialController {
 
+    private Stage getStage() {
+        return (Stage) javafx.stage.Window.getWindows().get(0);
+    }
     @FXML
     private void abrirGames() {
-        System.out.println("Abrir tela de jogos");
+        Navegador.trocarTela(getStage(), "game.fxml");
     }
 
     @FXML
     private void abrirUsers() {
-        System.out.println("Abrir tela de usuários");
+        Navegador.trocarTela(getStage(), "user.fxml");
     }
 
     @FXML
     private void abrirMarket() {
-        System.out.println("Abrir marketplace");
+        Navegador.trocarTela(getStage(), "market.fxml");
     }
 }
