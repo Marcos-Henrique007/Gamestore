@@ -1,102 +1,60 @@
 package com.GameStore.DAO;
 
 import com.GameStore.DataBase.ConexaoDB;
-import com.GameStore.model.Games;
+import com.GameStore.Model.Games;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameDAO {
 
-    public void salvar(Games game) throws SQLException {
-        if (game.getId() == 0) {
-            inserir(game);
-        } else {
-            atualizar(game);
-        }
-    }
+    public void inserir(Games game) {
+        String sql = "INSERT INTO games (name, price) VALUES (?, ?)";
 
-    private void inserir(Games game) throws SQLException {
-        String sql = "INSERT INTO games (name, price, barcode) VALUES (?, ?, ?)";
+        try (Connection conn = ConexaoDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        try (PreparedStatement ps = ConexaoDB.getInstance()
-                .getConnection().prepareStatement(sql)) {
+            if (conn == null) {
+                throw new RuntimeException("Conexão com banco falhou");
+            }
 
             ps.setString(1, game.getName());
             ps.setDouble(2, game.getPrice());
-            ps.setString(3, game.getBarcode());
 
             ps.executeUpdate();
+
+        } catch (Exception e) {
+            System.err.println("Erro ao inserir jogo:");
+            e.printStackTrace();
         }
     }
 
-    private void atualizar(Games game) throws SQLException {
-        String sql = "UPDATE games SET name = ?, price = ?, barcode = ? WHERE id = ?";
-
-        try (PreparedStatement ps = ConexaoDB.getInstance()
-                .getConnection().prepareStatement(sql)) {
-
-            ps.setString(1, game.getName());
-            ps.setDouble(2, game.getPrice());
-            ps.setString(3, game.getBarcode());
-            ps.setInt(4, game.getId());
-
-            ps.executeUpdate();
-        }
-    }
-
-    public void deletar(Integer id) throws SQLException {
-        String sql = "DELETE FROM games WHERE id = ?";
-
-        try (PreparedStatement ps = ConexaoDB.getInstance()
-                .getConnection().prepareStatement(sql)) {
-
-            ps.setInt(1, id);
-            ps.executeUpdate();
-        }
-    }
-
-    public List<Games> listar() throws SQLException {
+    public List<Games> listar() {
         List<Games> lista = new ArrayList<>();
-        String sql = "SELECT id, name, price, barcode FROM games";
+        String sql = "SELECT id, name, price FROM games";
 
-        try (Statement st = ConexaoDB.getInstance().getConnection().createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
+        try (Connection conn = ConexaoDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            if (conn == null) {
+                throw new RuntimeException("Conexão com banco falhou");
+            }
 
             while (rs.next()) {
-                Games game = new Games();
-                game.setId(rs.getInt("id"));
-                game.setName(rs.getString("name"));
-                game.setPrice(rs.getDouble("price"));
-                game.setBarcode(rs.getString("barcode"));
-
-                lista.add(game);
+                Games g = new Games();
+                g.setId(rs.getInt("id"));
+                g.setName(rs.getString("name"));
+                g.setPrice(rs.getDouble("price"));
+                lista.add(g);
             }
+
+        } catch (Exception e) {
+            System.err.println("Erro ao listar jogos:");
+            e.printStackTrace();
         }
-        return lista;
-    }
 
-    public List<Games> buscarPorNome(String nome) throws SQLException {
-        List<Games> lista = new ArrayList<>();
-        String sql = "SELECT id, name, price, barcode FROM games WHERE name LIKE ?";
-
-        try (PreparedStatement ps = ConexaoDB.getInstance()
-                .getConnection().prepareStatement(sql)) {
-
-            ps.setString(1, "%" + nome + "%");
-
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Games game = new Games();
-                    game.setId(rs.getInt("id"));
-                    game.setName(rs.getString("name"));
-                    game.setPrice(rs.getDouble("price"));
-                    game.setBarcode(rs.getString("barcode"));
-
-                    lista.add(game);
-                }
-            }
-        }
         return lista;
     }
 }
