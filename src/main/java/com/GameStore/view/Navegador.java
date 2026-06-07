@@ -7,20 +7,24 @@ import javafx.stage.Stage;
 
 public class Navegador {
 
-    public static void trocarTela(Stage stage, String fxml) {
+    private static Stage stage;
+
+    public static void setStage(Stage s) {
+        stage = s;
+    }
+
+    public static void trocarTela(String fxml) {
+
         try {
             Parent root = FXMLLoader.load(
                     Navegador.class.getResource("/com/GameStore/view/" + fxml)
             );
 
-            Scene scene = new Scene(root, 900, 600);
-
-            stage.setTitle("GameStore");
-            stage.setScene(scene);
-            stage.setResizable(true);
+            stage.setScene(new Scene(root, 900, 600)); // tamanho fixo melhor
             stage.show();
 
         } catch (Exception e) {
+            System.out.println("Erro ao carregar: " + fxml);
             e.printStackTrace();
         }
     }

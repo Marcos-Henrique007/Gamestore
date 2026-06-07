@@ -6,6 +6,5 @@ import lombok.Data;
 public class Games {
     private String Name;
     private Double Price;
-    private String Barcode;
     private Integer Id;
 }

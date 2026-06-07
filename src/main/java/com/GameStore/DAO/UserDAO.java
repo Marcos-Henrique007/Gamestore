@@ -1,60 +1,92 @@
 package com.GameStore.DAO;
 
-import com.GameStore.DataBase.ConexaoDB;
 import com.GameStore.Model.User;
+import com.GameStore.Util.ConnectionFactory;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
 
-    public void inserir(User user) {
+    public void salvar(User user) {
+
         String sql = "INSERT INTO users (name, email) VALUES (?, ?)";
 
-        try (Connection conn = ConexaoDB.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = ConnectionFactory.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            if (conn == null) {
-                throw new RuntimeException("Conexão com banco falhou");
-            }
+            stmt.setString(1, user.getName());
+            stmt.setString(2, user.getEmail());
 
-            ps.setString(1, user.getName());
-            ps.setString(2, user.getEmail());
-
-            ps.executeUpdate();
+            stmt.executeUpdate();
 
         } catch (Exception e) {
-            System.err.println("Erro ao inserir usuário:");
             e.printStackTrace();
         }
     }
 
     public List<User> listar() {
+
         List<User> lista = new ArrayList<>();
-        String sql = "SELECT id, name, email FROM users";
 
-        try (Connection conn = ConexaoDB.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+        String sql = "SELECT * FROM users";
 
-            if (conn == null) {
-                throw new RuntimeException("Conexão com banco falhou");
-            }
+        try (Connection conn = ConnectionFactory.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                User u = new User();
-                u.setId(rs.getInt("id"));
-                u.setName(rs.getString("name"));
-                u.setEmail(rs.getString("email"));
-                lista.add(u);
+
+                User user = new User();
+
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+
+                lista.add(user);
             }
 
         } catch (Exception e) {
-            System.err.println("Erro ao listar usuários:");
             e.printStackTrace();
         }
 
         return lista;
+    }
+
+    public void atualizar(User user) {
+
+        String sql = "UPDATE users SET name = ?, email = ? WHERE id = ?";
+
+        try (Connection conn = ConnectionFactory.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, user.getName());
+            stmt.setString(2, user.getEmail());
+            stmt.setInt(3, user.getId());
+
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deletar(int id) {
+
+        String sql = "DELETE FROM users WHERE id = ?";
+
+        try (Connection conn = ConnectionFactory.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

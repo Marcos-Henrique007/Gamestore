@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS games (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    price NUMERIC(10,2)
+);
+
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS market (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER,
+    game_id INTEGER
+);

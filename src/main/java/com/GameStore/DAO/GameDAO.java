@@ -1,6 +1,6 @@
 package com.GameStore.DAO;
 
-import com.GameStore.DataBase.ConexaoDB;
+import com.GameStore.Util.ConnectionFactory;
 import com.GameStore.Model.Games;
 
 import java.sql.*;
@@ -9,52 +9,72 @@ import java.util.List;
 
 public class GameDAO {
 
-    public void inserir(Games game) {
-        String sql = "INSERT INTO games (name, price) VALUES (?, ?)";
+    public void salvar(Games game) {
+        String sql = "INSERT INTO game (nome, preco) VALUES (?, ?)";
 
-        try (Connection conn = ConexaoDB.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = ConnectionFactory.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            if (conn == null) {
-                throw new RuntimeException("Conexão com banco falhou");
-            }
-
-            ps.setString(1, game.getName());
-            ps.setDouble(2, game.getPrice());
-
-            ps.executeUpdate();
+            stmt.setString(1, game.getName());
+            stmt.setDouble(2, game.getPrice());
+            stmt.executeUpdate();
 
         } catch (Exception e) {
-            System.err.println("Erro ao inserir jogo:");
             e.printStackTrace();
         }
     }
 
     public List<Games> listar() {
         List<Games> lista = new ArrayList<>();
-        String sql = "SELECT id, name, price FROM games";
+        String sql = "SELECT * FROM game";
 
-        try (Connection conn = ConexaoDB.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
-            if (conn == null) {
-                throw new RuntimeException("Conexão com banco falhou");
-            }
+        try (Connection conn = ConnectionFactory.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 Games g = new Games();
                 g.setId(rs.getInt("id"));
-                g.setName(rs.getString("name"));
-                g.setPrice(rs.getDouble("price"));
+                g.setName(rs.getString("nome"));
+                g.setPrice(rs.getDouble("preco"));
                 lista.add(g);
             }
 
         } catch (Exception e) {
-            System.err.println("Erro ao listar jogos:");
             e.printStackTrace();
         }
 
         return lista;
+    }
+
+    public void atualizar(Games game) {
+        String sql = "UPDATE game SET nome = ?, preco = ? WHERE id = ?";
+
+        try (Connection conn = ConnectionFactory.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, game.getName());
+            stmt.setDouble(2, game.getPrice());
+            stmt.setInt(3, game.getId());
+
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deletar(int id) {
+        String sql = "DELETE FROM game WHERE id = ?";
+
+        try (Connection conn = ConnectionFactory.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

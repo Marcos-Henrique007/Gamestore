@@ -3,10 +3,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 
 <AnchorPane prefWidth="900.0" prefHeight="600.0"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.GameStore.view.GamesController">
+            fx:controller="com.GameStore.Controller.GamesController">
 
     <children>
         <VBox spacing="15.0"
@@ -19,20 +20,25 @@
                    style="-fx-font-size: 24px; -fx-font-weight: bold;" />
 
             <TextField fx:id="txtNome" promptText="Nome do jogo"/>
-            <TextField fx:id="txtGenero" promptText="Gênero"/>
             <TextField fx:id="txtPreco" promptText="Preço"/>
 
-            <Button text="Salvar"
-                    onAction="#salvar"
-                    prefHeight="40"/>
+            <HBox spacing="10">
+                <Button text="Salvar" onAction="#salvar" prefHeight="40"/>
+                <Button text="Atualizar" onAction="#atualizar" prefHeight="40"/>
+                <Button text="Deletar" onAction="#deletar" prefHeight="40"/>
+            </HBox>
 
-            <TableView prefHeight="300">
+            <TableView fx:id="tabela" prefHeight="300">
                 <columns>
-                    <TableColumn text="Nome" prefWidth="200"/>
-                    <TableColumn text="Gênero" prefWidth="200"/>
-                    <TableColumn text="Preço" prefWidth="150"/>
+                    <TableColumn fx:id="colNome" text="Nome" prefWidth="200"/>
+                    <TableColumn fx:id="colGenero" text="Gênero" prefWidth="200"/>
+                    <TableColumn fx:id="colPreco" text="Preço" prefWidth="150"/>
                 </columns>
             </TableView>
+
+            <Button text="Voltar"
+                    onAction="#voltar"
+                    prefHeight="35"/>
 
         </VBox>
     </children>

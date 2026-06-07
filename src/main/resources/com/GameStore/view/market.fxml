@@ -6,30 +6,59 @@
 
 <AnchorPane prefWidth="900.0" prefHeight="600.0"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.GameStore.view.MarketController">
+            fx:controller="com.GameStore.Controller.MarketController">
 
     <children>
+
         <VBox spacing="15.0"
               AnchorPane.topAnchor="20.0"
               AnchorPane.leftAnchor="20.0"
               AnchorPane.rightAnchor="20.0"
               AnchorPane.bottomAnchor="20.0">
 
-            <Label text="Loja de Games"
+            <Label text="Market"
                    style="-fx-font-size: 24px; -fx-font-weight: bold;" />
 
-            <TableView prefHeight="400">
-                <columns>
-                    <TableColumn text="Nome" prefWidth="200"/>
-                    <TableColumn text="Gênero" prefWidth="200"/>
-                    <TableColumn text="Preço" prefWidth="150"/>
-                </columns>
-            </TableView>
+            <TextField fx:id="txtUserId"
+                       promptText="ID do Usuário"/>
 
-            <Button text="Comprar"
-                    onAction="#comprar"
+            <TextField fx:id="txtGameId"
+                       promptText="ID do Game"/>
+
+            <Button text="Salvar"
+                    onAction="#salvar"
                     prefHeight="40"/>
 
+            <Button text="Atualizar"
+                    onAction="#atualizar"
+                    prefHeight="40"/>
+
+            <Button text="Excluir"
+                    onAction="#deletar"
+                    prefHeight="40"/>
+
+            <Button text="Voltar"
+                    onAction="#voltar"
+                    prefHeight="35"/>
+
+            <TableView fx:id="tabela"
+                       prefHeight="350">
+
+                <columns>
+
+                    <TableColumn fx:id="colUserId"
+                                 text="User ID"
+                                 prefWidth="200"/>
+
+                    <TableColumn fx:id="colGameId"
+                                 text="Game ID"
+                                 prefWidth="200"/>
+
+                </columns>
+
+            </TableView>
+
         </VBox>
+
     </children>
 </AnchorPane>

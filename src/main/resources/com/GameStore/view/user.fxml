@@ -6,7 +6,7 @@
 
 <AnchorPane prefWidth="900.0" prefHeight="600.0"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.GameStore.view.UserController">
+            fx:controller="com.GameStore.Controller.UserController">
 
     <children>
         <VBox spacing="15.0"
@@ -18,19 +18,43 @@
             <Label text="Cadastro de Usuário"
                    style="-fx-font-size: 24px; -fx-font-weight: bold;" />
 
-            <TextField fx:id="txtNome" promptText="Nome"/>
-            <TextField fx:id="txtEmail" promptText="Email"/>
-            <PasswordField fx:id="txtSenha" promptText="Senha"/>
+            <TextField fx:id="txtNome"
+                       promptText="Nome"/>
 
-            <Button text="Cadastrar"
-                    onAction="#cadastrar"
+            <TextField fx:id="txtEmail"
+                       promptText="Email"/>
+
+            <Button text="Salvar"
+                    onAction="#salvar"
                     prefHeight="40"/>
 
-            <TableView prefHeight="300">
+            <Button text="Atualizar"
+                    onAction="#atualizar"
+                    prefHeight="40"/>
+
+            <Button text="Excluir"
+                    onAction="#deletar"
+                    prefHeight="40"/>
+
+            <Button text="Voltar"
+                    onAction="#voltar"
+                    prefHeight="35"/>
+
+            <TableView fx:id="tabela"
+                       prefHeight="300">
+
                 <columns>
-                    <TableColumn text="Nome" prefWidth="200"/>
-                    <TableColumn text="Email" prefWidth="250"/>
+
+                    <TableColumn fx:id="colNome"
+                                 text="Nome"
+                                 prefWidth="250"/>
+
+                    <TableColumn fx:id="colEmail"
+                                 text="Email"
+                                 prefWidth="300"/>
+
                 </columns>
+
             </TableView>
 
         </VBox>
