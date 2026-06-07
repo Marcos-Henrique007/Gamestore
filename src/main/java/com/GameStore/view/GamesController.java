@@ -1,17 +1,12 @@
 package com.GameStore.view;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 
 public class GamesController {
 
-    @FXML private TextField txtNome;
-
-    @FXML private TextField txtGenero;
-
-    @FXML private TextField txtPreco;
-
     @FXML
-    private void salvar() {
-        System.out.println("Jogo salvo: " + txtNome.getText());
+    private void salvar(ActionEvent event) {
+        System.out.println("Game salvo");
     }
 }

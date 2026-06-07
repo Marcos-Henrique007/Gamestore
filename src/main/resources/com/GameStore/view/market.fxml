@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
 
+<AnchorPane prefWidth="900.0" prefHeight="600.0"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.GameStore.view.MarketController">
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.GameStore.Controller.MarketController">
     <children>
-        <VBox spacing="8" layoutX="30" layoutY="20">
-            <Label text="Marketplace" style="-fx-font-size: 16px;" />
-            <TableView fx:id="tableMarket">
+        <VBox spacing="15.0"
+              AnchorPane.topAnchor="20.0"
+              AnchorPane.leftAnchor="20.0"
+              AnchorPane.rightAnchor="20.0"
+              AnchorPane.bottomAnchor="20.0">
+
+            <Label text="Loja de Games"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+            <TableView prefHeight="400">
                 <columns>
-                    <TableColumn text="Jogo" />
-                    <TableColumn text="Preço" />
+                    <TableColumn text="Nome" prefWidth="200"/>
+                    <TableColumn text="Gênero" prefWidth="200"/>
+                    <TableColumn text="Preço" prefWidth="150"/>
                 </columns>
             </TableView>
-            <Button text="Comprar" onAction="#comprar" />
+
+            <Button text="Comprar"
+                    onAction="#comprar"
+                    prefHeight="40"/>
+
         </VBox>
     </children>
 </AnchorPane>

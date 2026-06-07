@@ -1,15 +1,12 @@
 package com.GameStore.view;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 
 public class UserController {
 
-    @FXML private TextField txtNome;
-
-    @FXML private TextField txtEmail;
-
     @FXML
-    private void cadastrar() {
-        System.out.println("Usuário cadastrado: " + txtNome.getText());
+    private void cadastrar(ActionEvent event) {
+        System.out.println("Usuário cadastrado");
     }
 }

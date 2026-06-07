@@ -12,8 +12,14 @@ public class Navegador {
             Parent root = FXMLLoader.load(
                     Navegador.class.getResource("/com/GameStore/view/" + fxml)
             );
-            stage.setScene(new Scene(root));
+
+            Scene scene = new Scene(root, 900, 600);
+
+            stage.setTitle("GameStore");
+            stage.setScene(scene);
+            stage.setResizable(true);
             stage.show();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
