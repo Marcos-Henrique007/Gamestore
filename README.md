@@ -169,7 +169,7 @@ docker compose down
 ## 7. Estrutura do Banco
 
 ```sql
-CREATE TABLE games (
+CREATE TABLE game (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100),
     price NUMERIC(10,2)
